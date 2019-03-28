@@ -1,18 +1,16 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:lightapp/post.dart';
 import 'package:lightapp/color_loader3.dart';
+import 'package:lightapp/post.dart';
 
 Color btnBGColor = Colors.orange;
 Color txtColor = Colors.white;
 
-class Model {
+class BottomSheetModel {
   final DatabaseReference databaseRef =
       FirebaseDatabase.instance.reference().child("Posts");
 
@@ -178,7 +176,7 @@ class PageHome extends StatefulWidget {
 }
 
 class PageHomeState extends State<PageHome> {
-  Model myModelSheet = new Model();
+  BottomSheetModel myModelSheet = new BottomSheetModel();
 
   StreamSubscription<Event> _onPostAddedSubscription;
   StreamSubscription<Event> _onPostChangedSubscription;
@@ -324,12 +322,6 @@ class PageHomeState extends State<PageHome> {
       });
   }
 
-  startTime() async {
-    isLoading = true;
-    var _duration = new Duration(milliseconds: 1000);
-    return new Timer(_duration, loadingDone);
-  }
-
   Widget showSimpleDialog() {
     newCode = "";
     newAddress = "";
@@ -383,6 +375,12 @@ class PageHomeState extends State<PageHome> {
       content: Text(message),
       duration: Duration(seconds: 1),
     ));
+  }
+
+  startTime() async {
+    isLoading = true;
+    var _duration = new Duration(milliseconds: 1000);
+    return new Timer(_duration, loadingDone);
   }
 
   void _onPostAdded(Event event) {

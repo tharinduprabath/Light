@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_database/firebase_database.dart';
 
 class DataSearch extends SearchDelegate<String> {
@@ -49,10 +48,10 @@ class DataSearch extends SearchDelegate<String> {
         : new List<String>();
 
     return ListView.separated(
-      separatorBuilder: (context,index) => Divider(
-        color: Colors.black26,
-        height: 1,
-      ),
+      separatorBuilder: (context, index) => Divider(
+            color: Colors.black26,
+            height: 1,
+          ),
       itemBuilder: (context, index) => ListTile(
             onTap: () {
               this.selectedCode = suggestionList[index];
@@ -75,7 +74,10 @@ class DataSearch extends SearchDelegate<String> {
                   ),
                 ])),
             subtitle: Text(addressList[index]),
-            leading: Icon(Icons.lightbulb_outline,size: 27,),
+            leading: Icon(
+              Icons.lightbulb_outline,
+              size: 27,
+            ),
           ),
       itemCount: suggestionList.length,
     );
@@ -102,12 +104,20 @@ class DataSearch extends SearchDelegate<String> {
             Container(
               width: 400,
               height: 50,
-              child: Center(child: Text(this.selectedCode,style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),)),
+              child: Center(
+                  child: Text(
+                this.selectedCode,
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              )),
             ),
             Container(
               width: 400,
               height: 50,
-              child: Center(child: Text("Address",style: TextStyle(color: Colors.black54,fontSize: 20),)),
+              child: Center(
+                  child: Text(
+                "Address",
+                style: TextStyle(color: Colors.black54, fontSize: 20),
+              )),
             ),
             Container(
               width: 300,

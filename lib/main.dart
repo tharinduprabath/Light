@@ -16,12 +16,13 @@ class MyApp extends StatelessWidget {
         title: 'Light Service',
         theme: ThemeData(
             primarySwatch: Colors.orange,
+            iconTheme: IconThemeData(color: Colors.orange),
             appBarTheme: AppBarTheme(
                 iconTheme: IconThemeData(
                   color: Colors.white,
                 ),
                 textTheme: TextTheme(
-                    title: TextStyle(color: Colors.white, fontSize: 22)))),
+                    title: TextStyle(color: Colors.white, fontSize: 25)))),
         home: Splash());
   }
 }

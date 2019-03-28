@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:lightapp/color_loader4.dart';
 import 'package:lightapp/dot_type.dart';
@@ -11,8 +10,6 @@ class Splash extends StatefulWidget {
 class SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
-    Color itemColor = Colors.orange;
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -25,34 +22,23 @@ class SplashState extends State<Splash> {
               ]),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Spacer(),
             Icon(
               Icons.lightbulb_outline,
               size: 200,
-              color: itemColor,
             ),
             Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                   padding: const EdgeInsets.only(bottom: 32),
-                  child: colorLoader4()),
+                  child: _colorLoader4()),
             ),
           ],
+          mainAxisAlignment: MainAxisAlignment.center,
         ),
       ),
-    );
-  }
-
-  Widget colorLoader4() {
-    return ColorLoader4(
-//      dotOneColor: itemColor,
-//      dotTwoColor: itemColor,
-//      dotThreeColor: itemColor,
-      dotType: DotType.diamond,
-      duration: Duration(milliseconds: 800),
     );
   }
 
@@ -63,15 +49,25 @@ class SplashState extends State<Splash> {
 
   void initState() {
     super.initState();
-    startTime();
+    _startTime();
   }
 
-  void navigationPage() {
+  Widget _colorLoader4() {
+    return ColorLoader4(
+//      dotOneColor: itemColor,
+//      dotTwoColor: itemColor,
+//      dotThreeColor: itemColor,
+      dotType: DotType.diamond,
+      duration: Duration(milliseconds: 800),
+    );
+  }
+
+  void _navigationPage() {
     Navigator.of(context).pushReplacementNamed('/handle');
   }
 
-  startTime() async {
+  _startTime() async {
     var _duration = new Duration(seconds: 5);
-    return new Timer(_duration, navigationPage);
+    return new Timer(_duration, _navigationPage);
   }
 }
