@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:lightapp/color_loader3.dart';
 import 'package:lightapp/post.dart';
 
-Color btnBGColor = Colors.orange;
+//Color btnBGColor = Colors.orange;
 Color txtColor = Colors.white;
 
 class BottomSheetModel {
@@ -17,7 +16,7 @@ class BottomSheetModel {
   BuildContext context;
   String selectedID, updatedAddress = "";
 
-  Widget confirmAlert() {
+  Widget _confirmAlertDialog() {
     return AlertDialog(
       titlePadding: EdgeInsets.all(20),
       elevation: 14,
@@ -29,7 +28,7 @@ class BottomSheetModel {
         FlatButton(
           child: Text(
             "NO",
-            style: TextStyle(fontSize: 16, color: btnBGColor),
+            style: TextStyle(fontSize: 16),
           ),
           onPressed: () {
             Navigator.of(this.context).pop();
@@ -38,24 +37,24 @@ class BottomSheetModel {
         FlatButton(
           child: Text(
             "YES",
-            style: TextStyle(fontSize: 16, color: btnBGColor),
+            style: TextStyle(fontSize: 16),
           ),
           onPressed: () {
+            _delete();
             Navigator.of(this.context).pop();
-            delete();
           },
         ),
       ],
     );
   }
 
-  void delete() {
+  void _delete() {
     databaseRef.child(this.selectedID).remove().then((_) {
       snackBarMessage("Deleted");
     });
   }
 
-  mainBottomSheet(BuildContext context, String id, String address) {
+  _mainBottomSheet(BuildContext context, String id, String address) {
     this.selectedID = id;
     this.context = context;
     this.updatedAddress = address;
@@ -91,7 +90,6 @@ class BottomSheetModel {
       children: <Widget>[
         TextField(
           autofocus: true,
-          cursorColor: btnBGColor,
           enableInteractiveSelection: true,
           controller: txt,
           decoration: InputDecoration(icon: Icon(Icons.comment)),
@@ -100,7 +98,6 @@ class BottomSheetModel {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: RaisedButton(
-            color: btnBGColor,
             textColor: txtColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -146,7 +143,7 @@ class BottomSheetModel {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return confirmAlert();
+          return _confirmAlertDialog();
         });
   }
 
@@ -198,7 +195,7 @@ class PageHomeState extends State<PageHome> {
             foregroundColor: txtColor,
             backgroundColor: btnBGColor,
             onPressed: () {
-              _simpleDialog(context);
+              _showAddNewDialog(context);
             },
             child: Icon(
               Icons.add,
@@ -235,7 +232,7 @@ class PageHomeState extends State<PageHome> {
                             highlightColor: Colors.orange[200],
                             onLongPress: () {
                               this.selectedIndex = index;
-                              myModelSheet.mainBottomSheet(context,
+                              myModelSheet._mainBottomSheet(context,
                                   posts[index].id, posts[index].address);
                             },
                             child: new ListTile(
@@ -292,13 +289,13 @@ class PageHomeState extends State<PageHome> {
 
     if (codeList.contains(newCode)) {
       // TODO: Error duplicate
-      snackBarMessage("Already Inserted");
+      _snackBarMessage("Already Inserted");
     } else {
       databaseRef.push().set({
         'code': newCode,
         'address': newAddress,
       }).then((_) {
-        snackBarMessage("Saved");
+        _snackBarMessage("Saved");
       });
     }
   }
@@ -313,74 +310,26 @@ class PageHomeState extends State<PageHome> {
     _onPostRemovedSubscription =
         databaseRef.onChildRemoved.listen(_onPostRemoved);
     FirebaseDatabase.instance.setPersistenceEnabled(true);
-    startTime();
+    _startTime();
   }
 
-  void loadingDone() {
-      setState(() {
-        isLoading = false;
-      });
+  void _loadingDone() {
+    setState(() {
+      isLoading = false;
+    });
   }
 
-  Widget showSimpleDialog() {
-    newCode = "";
-    newAddress = "";
-
-    return SimpleDialog(
-      titlePadding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-      elevation: 18,
-      title: Center(
-          child: Text(
-        "NEW POST",
-        style: TextStyle(fontSize: 24),
-      )),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-      contentPadding: EdgeInsets.all(32),
-      children: <Widget>[
-        TextField(
-          inputFormatters: <TextInputFormatter>[],
-          autofocus: true,
-          cursorColor: Colors.orange,
-          decoration:
-              InputDecoration(icon: Icon(Icons.code), labelText: "Code"),
-          maxLength: 6,
-          maxLengthEnforced: true,
-          textCapitalization: TextCapitalization.characters,
-          onChanged: (val) => newCode = val,
-        ),
-        TextField(
-          cursorColor: Colors.orange,
-          decoration:
-              InputDecoration(icon: Icon(Icons.comment), labelText: "Address"),
-          maxLength: 150,
-          maxLengthEnforced: false,
-          onChanged: (val) => newAddress = val,
-        ),
-        RaisedButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-          color: btnBGColor,
-          textColor: txtColor,
-          onPressed: () {
-            handleSave();
-            Navigator.pop(context);
-          },
-          child: Text("SAVE"),
-        )
-      ],
-    );
-  }
-
-  void snackBarMessage(String message) {
+  void _snackBarMessage(String message) {
     Scaffold.of(context).showSnackBar(new SnackBar(
       content: Text(message),
       duration: Duration(seconds: 1),
     ));
   }
 
-  startTime() async {
+  _startTime() async {
     isLoading = true;
     var _duration = new Duration(milliseconds: 1000);
-    return new Timer(_duration, loadingDone);
+    return new Timer(_duration, _loadingDone);
   }
 
   void _onPostAdded(Event event) {
@@ -407,11 +356,56 @@ class PageHomeState extends State<PageHome> {
     });
   }
 
-  _simpleDialog(context) {
+  _showAddNewDialog(context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return showSimpleDialog();
+          newCode = "";
+          newAddress = "";
+
+          return SimpleDialog(
+            titlePadding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+            elevation: 18,
+            title: Center(
+                child: Text(
+              "NEW POST",
+              style: TextStyle(fontSize: 24),
+            )),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            contentPadding: EdgeInsets.all(32),
+            children: <Widget>[
+              TextField(
+                inputFormatters: <TextInputFormatter>[],
+                autofocus: true,
+                cursorColor: Colors.orange,
+                decoration:
+                    InputDecoration(icon: Icon(Icons.code), labelText: "Code"),
+                maxLength: 6,
+                maxLengthEnforced: true,
+                textCapitalization: TextCapitalization.characters,
+                onChanged: (val) => newCode = val,
+              ),
+              TextField(
+                cursorColor: Colors.orange,
+                decoration: InputDecoration(
+                    icon: Icon(Icons.comment), labelText: "Address"),
+                maxLength: 150,
+                maxLengthEnforced: false,
+                onChanged: (val) => newAddress = val,
+              ),
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0)),
+                textColor: txtColor,
+                onPressed: () {
+                  handleSave();
+                  Navigator.pop(context);
+                },
+                child: Text("SAVE"),
+              )
+            ],
+          );
         });
   }
 }
