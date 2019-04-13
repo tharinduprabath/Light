@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lightapp/color_loader4.dart';
 import 'package:lightapp/dot_type.dart';
@@ -8,6 +9,7 @@ class Splash extends StatefulWidget {
 }
 
 class SplashState extends State<Splash> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,7 @@ class SplashState extends State<Splash> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.orange[200],
+                Colors.orange[100],
                 Colors.orange[50],
               ]),
         ),
@@ -49,6 +51,7 @@ class SplashState extends State<Splash> {
 
   void initState() {
     super.initState();
+    FirebaseDatabase.instance.setPersistenceEnabled(true);
     _startTime();
   }
 

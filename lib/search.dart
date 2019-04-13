@@ -5,7 +5,7 @@ class DataSearch extends SearchDelegate<String> {
   String selectedCode = "";
 
   List<String> codeList = new List<String>();
-  List<String> addressList = new List<String>();
+  //List<String> addressList = new List<String>();
 
   DataSearch() {
     var db = FirebaseDatabase.instance.reference().child("Posts");
@@ -13,10 +13,11 @@ class DataSearch extends SearchDelegate<String> {
       Map<dynamic, dynamic> values = snapshot.value;
       values.forEach((key, values) {
         codeList.add(values["code"]);
-        addressList.add(values["address"]);
       });
     });
   }
+
+
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -73,10 +74,9 @@ class DataSearch extends SearchDelegate<String> {
                         fontSize: 17),
                   ),
                 ])),
-            subtitle: Text(addressList[index]),
             leading: Icon(
               Icons.lightbulb_outline,
-              size: 27,
+              size: 30,
             ),
           ),
       itemCount: suggestionList.length,
@@ -94,7 +94,7 @@ class DataSearch extends SearchDelegate<String> {
             end: Alignment.bottomCenter,
             colors: [
               Colors.white,
-              Colors.orange[200],
+              Colors.white,
             ]),
       ),
       child: Center(
@@ -111,22 +111,21 @@ class DataSearch extends SearchDelegate<String> {
               )),
             ),
             Container(
-              width: 400,
-              height: 50,
-              child: Center(
-                  child: Text(
-                "Address",
-                style: TextStyle(color: Colors.black54, fontSize: 20),
-              )),
-            ),
-            Container(
               width: 300,
               height: 400,
               child: Card(
                 elevation: 2,
                 child: Container(
-                  color: Colors.orange[200],
-                  child: Center(child: Text("Map Here")),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Colors.orange[50],
+                          Colors.orange[200],
+                        ]),
+                  ),
+                  child: Center(child: Text("Google Map Here")),
                 ),
               ),
             )

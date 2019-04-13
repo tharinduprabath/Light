@@ -19,6 +19,7 @@ class Handle extends StatelessWidget {
         IconButton(
             icon: Icon(
               Icons.search,
+              size: 25,
             ),
             onPressed: () {
               showSearch(context: context, delegate: DataSearch());
@@ -55,6 +56,6 @@ class Handle extends StatelessWidget {
           Icons.lightbulb_outline,
           size: 70,
         ),
-        applicationLegalese: "SHADOWFAX©2019");
+        applicationLegalese: "THE BRICKS \nSoftware House \n@ 2019");
   }
 }
