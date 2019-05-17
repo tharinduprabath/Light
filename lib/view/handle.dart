@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lightapp/constants.dart';
-import 'package:lightapp/home.dart';
-import 'package:lightapp/search.dart';
+import 'package:lightapp/model/constants.dart';
+import 'package:lightapp/view/home.dart';
+import 'package:lightapp/view/search.dart';
 
 class Handle extends StatelessWidget {
   @override

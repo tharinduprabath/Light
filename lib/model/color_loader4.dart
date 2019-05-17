@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:lightapp/dot_type.dart';
+import 'package:lightapp/model/dot_type.dart';
 
-class ColorLoader5 extends StatefulWidget {
+class ColorLoader4 extends StatefulWidget {
 
   final Color dotOneColor;
   final Color dotTwoColor;
@@ -11,7 +11,7 @@ class ColorLoader5 extends StatefulWidget {
   final DotType dotType;
   final Icon dotIcon;
 
-  ColorLoader5({
+  ColorLoader4({
     this.dotOneColor = Colors.redAccent,
     this.dotTwoColor = Colors.green,
     this.dotThreeColor = Colors.blueAccent,
@@ -21,10 +21,10 @@ class ColorLoader5 extends StatefulWidget {
   });
 
   @override
-  _ColorLoader5State createState() => _ColorLoader5State();
+  _ColorLoader4State createState() => _ColorLoader4State();
 }
 
-class _ColorLoader5State extends State<ColorLoader5>
+class _ColorLoader4State extends State<ColorLoader4>
     with SingleTickerProviderStateMixin {
   Animation<double> animation_1;
   Animation<double> animation_2;
@@ -41,21 +41,21 @@ class _ColorLoader5State extends State<ColorLoader5>
     animation_1 = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, 0.70, curve: Curves.linear),
+        curve: Interval(0.0, 0.80, curve: Curves.ease),
       ),
     );
 
     animation_2 = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.1, 0.80, curve: Curves.linear),
+        curve: Interval(0.1, 0.9, curve: Curves.ease),
       ),
     );
 
     animation_3 = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.2, 0.90, curve: Curves.linear),
+        curve: Interval(0.2, 1.0, curve: Curves.ease),
       ),
     );
 
@@ -70,13 +70,18 @@ class _ColorLoader5State extends State<ColorLoader5>
 
   @override
   Widget build(BuildContext context) {
-    //print(animation_1.value <= 0.4 ? 2.5 * animation_1.value : (animation_1.value > 0.40 && animation_1.value <= 0.60) ? 1.0 : 2.5 - (2.5 * animation_1.value));
     return Container(
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Opacity(
-            opacity: (animation_1.value <= 0.4 ? 2.5 * animation_1.value : (animation_1.value > 0.40 && animation_1.value <= 0.60) ? 1.0 : 2.5 - (2.5 * animation_1.value)),
+          new Transform.translate(
+            offset: Offset(
+              0.0,
+              -30 *
+                  (animation_1.value <= 0.50
+                      ? animation_1.value
+                      : 1.0 - animation_1.value),
+            ),
             child: new Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Dot(
@@ -87,8 +92,14 @@ class _ColorLoader5State extends State<ColorLoader5>
               ),
             ),
           ),
-          Opacity(
-            opacity: (animation_2.value <= 0.4 ? 2.5 * animation_2.value : (animation_2.value > 0.40 && animation_2.value <= 0.60)? 1.0 : 2.5 - (2.5 * animation_2.value)),
+          Transform.translate(
+            offset: Offset(
+              0.0,
+              -30 *
+                  (animation_2.value <= 0.50
+                      ? animation_2.value
+                      : 1.0 - animation_2.value),
+            ),
             child: new Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Dot(
@@ -99,8 +110,14 @@ class _ColorLoader5State extends State<ColorLoader5>
               ),
             ),
           ),
-          Opacity(
-            opacity: (animation_3.value <= 0.4 ? 2.5 * animation_3.value : (animation_3.value > 0.40 && animation_3.value <= 0.60) ? 1.0 : 2.5 - (2.5 * animation_3.value)),
+          Transform.translate(
+            offset: Offset(
+              0.0,
+              -30 *
+                  (animation_3.value <= 0.50
+                      ? animation_3.value
+                      : 1.0 - animation_3.value),
+            ),
             child: new Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Dot(

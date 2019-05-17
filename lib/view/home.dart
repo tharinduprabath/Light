@@ -3,8 +3,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lightapp/color_loader3.dart';
-import 'package:lightapp/post.dart';
+import 'package:lightapp/model/color_loader3.dart';
+import 'package:lightapp/model/post.dart';
 
 //Color btnBGColor = Colors.orange;
 Color txtColor = Colors.white;

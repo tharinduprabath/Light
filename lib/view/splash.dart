@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:lightapp/color_loader4.dart';
-import 'package:lightapp/dot_type.dart';
+import 'package:lightapp/model/color_loader4.dart';
+import 'package:lightapp/model/dot_type.dart';
 
 class Splash extends StatefulWidget {
   SplashState createState() => SplashState();
