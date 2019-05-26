@@ -17,8 +17,6 @@ class DataSearch extends SearchDelegate<String> {
     });
   }
 
-
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -111,20 +109,35 @@ class DataSearch extends SearchDelegate<String> {
               )),
             ),
             Container(
+              child: Center(
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0)),
+                  onPressed: (){},
+                  color: Colors.orange,
+                  child: Text("Send Query", style: TextStyle(color: Colors.white),),
+                ),
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 300,
+              child: Card(
+                child: Center(child: Row(children: <Widget>[
+                  Text("STATUS: ", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("Under Maintanance"),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                )),
+                elevation: 3,
+              ),
+            ),
+            Container(
               width: 300,
               height: 400,
               child: Card(
-                elevation: 2,
+                elevation: 3,
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          Colors.orange[50],
-                          Colors.orange[200],
-                        ]),
-                  ),
                   child: Center(child: Text("Google Map Here")),
                 ),
               ),

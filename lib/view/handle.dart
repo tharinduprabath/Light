@@ -51,11 +51,11 @@ class Handle extends StatelessWidget {
     showAboutDialog(
         context: context,
         applicationName: "Light",
-        applicationVersion: "1.0v",
+        applicationVersion: "0.1v",
         applicationIcon: Icon(
           Icons.lightbulb_outline,
           size: 70,
         ),
-        applicationLegalese: "THE BRICKS \nSoftware House \n@ 2019");
+        applicationLegalese: "THE BRICKS \nSoftware House \n© 2019");
   }
 }
